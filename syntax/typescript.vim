@@ -285,8 +285,6 @@ syntax cluster tsExpression contains=tsRegexp,tsComment,tsString,tsTemplateStrin
 " Tokens that are globally used by typescript
 syntax cluster tsGlobals contains=tsBuiltinValues,tsThis,tsSuper,tsBuiltinObjects
 
-" Highlight flow syntax
-silent! source <sfile>:h/extras/flow.vim
 " Highlight tsodc
 silent! source <sfile>:h/extras/tsdoc.vim
 
