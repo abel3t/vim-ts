@@ -4,11 +4,11 @@ if !exists("main_syntax")
   elseif exists("b:current_syntax")
     finish
   endif
-  let main_syntax = 'javascript'
+  let main_syntax = 'typescript'
 endif
 
 " Dollar sign is permitted anywhere in an identifier
-if (v:version > 704 || v:version == 704 && has('patch1142')) && main_syntax == 'javascript'
+if (v:version > 704 || v:version == 704 && has('patch1142')) && main_syntax == 'typescript'
   syntax iskeyword @,48-57,_,192-255,$
 else
   setlocal iskeyword+=$
@@ -33,7 +33,7 @@ syntax region  tsBlock matchgroup=tsBraces start=+{+ end=+}+ contains=@tsTop ext
 syntax region  tsParen matchgroup=tsParens start=+(+ end=+)+ contains=@tsExpression,tsComma,tsSpread extend fold skipwhite skipempty nextgroup=tsArrow,tsFunctionCallArgs,tsAccessor,tsDot,@tsOperators,tsFlowColon
 
 " Operators
-" REFERENCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators
+" REFERENCE: https://developer.mozilla.org/en-US/docs/Web/typescript/Guide/Expressions_and_Operators
 syntax keyword tsUnaryOperator delete void typeof skipwhite skipempty nextgroup=@tsExpression
 syntax keyword tsRelationalOperator in instanceof contained skipwhite skipempty nextgroup=@tsExpression
 " REFERENCE: https://github.com/tc39/proposal-bind-operator
@@ -66,8 +66,8 @@ syntax cluster tsOperators contains=tsRelationalOperator,tsTernary,tsOperator,ts
 
 " Modules
 " REFERENCE:
-"   - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
-"   - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
+"   - https://developer.mozilla.org/en-US/docs/Web/typescript/Reference/Statements/import
+"   - https://developer.mozilla.org/en-US/docs/Web/typescript/Reference/Statements/export
 syntax keyword tsImport import skipwhite skipempty nextgroup=tsModuleName,tsModuleAsterisk,tsModuleBlock,tsString,tsDecoratorName,tsFlowModuleType,tsFlowModuleTypeof
 syntax keyword tsExport export skipwhite skipempty nextgroup=tsVariableType,tsFunction,tsClass,tsDecorator,tsModuleBlock,tsModuleDefault,tsModuleAsterisk
 syntax keyword tsFrom from contained skipwhite skipempty nextgroup=tsString
@@ -139,7 +139,7 @@ syntax region  tsTemplateString start=+`+ skip=+\\\\\|\\`\|\\\n+ end=+`+ contain
 syntax region  tsTemplateExpression matchgroup=tsTemplateBrace start=+\%([^\\]\%(\\\\\)*\)\@<=${+ end=+}+ contained contains=@tsExpression
 
 " Built-in values
-" REFERENCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+" REFERENCE: https://developer.mozilla.org/en-US/docs/Web/typescript/Reference/Global_Objects
 syntax keyword tsBuiltinValues undefined null NaN true false Infinity globalThis global contained
 syntax keyword tsBuiltinValues window document module exports require console arguments contained
 
@@ -282,7 +282,7 @@ syntax region  tsWithExpression matchgroup=tsWithParens start=+(+ end=+)+ contai
 syntax cluster tsTop contains=tsDebugger,tsSemicolon,tsParensError,tsBlock,tsParen,@tsTopOperators,tsImport,tsExport,tsRegexp,tsComment,tsVariableType,tsIdentifier,tsString,tsTemplateString,tsTemplateStringTag,tsNumber,tsArray,tsClass,tsNew,tsDecorator,tsDecoratorName,tsAsync,tsAwait,tsReturn,tsFunction,tsYield,tsFunctionCall,tsFor,tsDo,tsWhile,tsBreak,tsContinue,tsLabel,tsIf,tsSwitch,tsTry,tsThrow,tsWith
 " Tokens that produce a value
 syntax cluster tsExpression contains=tsRegexp,tsComment,tsString,tsTemplateString,tsTemplateStringTag,tsNumber,tsArray,tsObject,tsIdentifier,tsAsync,tsAwait,tsYield,tsFunction,tsFunctionCall,tsClass,tsParen,@tsTopOperators,tsBindOperator,tsNew
-" Tokens that are globally used by JavaScript
+" Tokens that are globally used by typescript
 syntax cluster tsGlobals contains=tsBuiltinValues,tsThis,tsSuper,tsBuiltinObjects
 
 " Highlight flow syntax
@@ -588,7 +588,7 @@ highlight default link tsComment Comment
 highlight default link tsWith Keyword
 highlight default link tsWithParens tsParens
 
-let b:current_syntax = "javascript"
-if main_syntax == 'javascript'
+let b:current_syntax = "typescript"
+if main_syntax == 'typescript'
   unlet main_syntax
 endif

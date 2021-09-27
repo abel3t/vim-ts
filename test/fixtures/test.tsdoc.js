@@ -1,6 +1,6 @@
 // @abstract/@virtual
 
-`\\\``
+`\\\``;
 
 /**
  * Generic dairy product.
@@ -13,7 +13,7 @@ function DairyProduct() {}
  * @abstract
  * @return {boolean}
  */
-DairyProduct.prototype.isSolid = function() {
+DairyProduct.prototype.isSolid = function () {
   throw new Error('must be implemented by subclass!');
 };
 
@@ -28,15 +28,13 @@ function Milk() {}
  * Check whether milk is solid at room temperature.
  * @return {boolean} Always returns false.
  */
-Milk.prototype.isSolid = function() {
+Milk.prototype.isSolid = function () {
   return false;
 };
-
 
 // @access
 /** @constructor */
 function Thingy() {
-
   /** @access private */
   var foo = 0;
 
@@ -48,14 +46,12 @@ function Thingy() {
 
   /** @access public */
   this.pez = 3;
-
 }
 
 // same as...
 
 /** @constructor */
 function OtherThingy() {
-
   /** @private */
   var foo = 0;
 
@@ -67,28 +63,27 @@ function OtherThingy() {
 
   /** @public */
   this.pez = 3;
-
 }
 
 // @alias
-Klass('trackr.CookieManager',
+Klass(
+  'trackr.CookieManager',
 
   /**
    * @class
    * @alias trackr.CookieManager
    * @param {Object} kv
    */
-  function(kv) {
+  function (kv) {
     /** The value. */
     this.value = kv;
   }
-
 );
 
 /** @namespace */
 var Apple = {};
 
-(function(ns) {
+(function (ns) {
   /**
    * @namespace
    * @alias Apple.Core
@@ -96,14 +91,13 @@ var Apple = {};
   var core = {};
 
   /** Documented as Apple.Core.seed */
-  core.seed = function() {};
+  core.seed = function () {};
 
   ns.Core = core;
 })(Apple);
 
 // Documenting objectA with @alias
-var objectA = (function() {
-
+var objectA = (function () {
   /**
    * Documented as objectA
    * @alias objectA
@@ -114,7 +108,7 @@ var objectA = (function() {
      * Documented as objectA.myProperty
      * @member
      */
-    myProperty: 'foo'
+    myProperty: 'foo',
   };
 
   return x;
@@ -158,15 +152,14 @@ function MyClass() {}
  * @borrows trstr as trim
  */
 var util = {
-  trim: trstr
+  trim: trstr,
 };
 
 /**
  * Remove whitespace from around a string.
  * @param {string} str
  */
-function trstr(str) {
-}
+function trstr(str) {}
 
 // @callback
 /**
@@ -182,8 +175,7 @@ function trstr(str) {
  * @constructor
  * @class {Object} person
  */
-function Person() {
-}
+function Person() {}
 
 // @classdesc
 /**
@@ -191,8 +183,7 @@ function Person() {
  * @class
  * @classdesc This is a description of the MyClass class.
  */
-function MyClass() {
-}
+function MyClass() {}
 
 // @constant/@const
 
@@ -211,26 +202,26 @@ var Person = makeClass(
   /** @lends Person.prototype */
   {
     /** @constructs */
-    initialize: function(name) {
+    initialize: function (name) {
       this.name = name;
     },
     /** Describe me. */
-    say: function(message) {
-      return this.name + " says: " + message;
-    }
+    say: function (message) {
+      return this.name + ' says: ' + message;
+    },
   }
-)
+);
 
-makeClass('Menu',
+makeClass(
+  'Menu',
   /**
    * @constructs Menu
    * @param items
    */
-  function (items) { },
+  function (items) {},
   {
     /** @memberof Menu# */
-    show: function(){
-    }
+    show: function () {},
   }
 );
 
@@ -252,8 +243,7 @@ const RED = 0xff0000;
 /**
  * @deprecated since version 2.0
  */
-function old() {
-}
+function old() {}
 
 // @description
 /**
@@ -277,7 +267,7 @@ var triState = {
   TRUE: 1,
   FALSE: -1,
   /** @type {boolean} */
-  MAYBE: true
+  MAYBE: true,
 };
 
 // @event
@@ -286,7 +276,7 @@ var triState = {
  *
  * @fires Hurl#snowball
  */
-Hurl.prototype.snowball = function() {
+Hurl.prototype.snowball = function () {
   /**
    * Snowball event.
    *
@@ -295,7 +285,7 @@ Hurl.prototype.snowball = function() {
    * @property {boolean} isPacked - Indicates whether the snowball is tightly packed.
    */
   this.emit('snowball', {
-    isPacked: this._snowball.isPacked
+    isPacked: this._snowball.isPacked,
   });
 };
 
@@ -304,7 +294,7 @@ Hurl.prototype.snowball = function() {
  *
  * @fires Hurl#snowball
  */
-Hurl.prototype.snowball = function() {
+Hurl.prototype.snowball = function () {
   // ...
 };
 
@@ -349,7 +339,6 @@ globalNS.method1 = function (a, b) {
 
 /** Say hello. */
 define(function () {
-
   /**
    * A module that says hello!
    * @exports hello/world
@@ -361,7 +350,7 @@ define(function () {
 /**
  * The built in string object.
  * @external String
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String|String}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/typescript/Reference/Global_Objects/String|String}
  */
 
 /**
@@ -386,7 +375,7 @@ define(function () {
 // @file/@fileoverview/@overview
 /**
  * @file Manages the configuration settings for the widget.
- * @author Rowina Sanela 
+ * @author Rowina Sanela
  */
 
 // @fires/@emits
@@ -395,7 +384,7 @@ define(function () {
  *
  * @fires Milkshake#drain
  */
-Milkshake.prototype.drink = function() {
+Milkshake.prototype.drink = function () {
   // ...
 };
 
@@ -416,12 +405,12 @@ Milkshake.prototype.drink = function() {
  */
 
 // @global
-(function() {
+(function () {
   /** @global */
   var foo = 'hello foo';
 
   this.foo = foo;
-}).apply(window);
+}.apply(window));
 
 // @implements
 /**
@@ -461,7 +450,7 @@ define('hurler', [], function () {
      */
     attack: function () {
       this.emit('snowball', { velocity: 10 });
-    }
+    },
   };
 
   return exports;
@@ -483,7 +472,7 @@ define('playground/monitor', [], function () {
      */
     reportThrowage: function (e) {
       this.log('snowball thrown: velocity ' + e.velocity);
-    }
+    },
   };
 
   return exports;
@@ -517,7 +506,7 @@ function Data() {
      * @memberof! Data#
      */
     x: 0,
-    y: 1
+    y: 1,
   };
 }
 
@@ -525,7 +514,7 @@ function Data() {
  * @constructor FormButton
  * @mixes Eventful
  */
-var FormButton = function() {
+var FormButton = function () {
   // code...
 };
 
@@ -567,7 +556,7 @@ function sayHello(somebody) {
  * @param {string} employee.name - The name of the employee.
  * @param {string} employee.department - The employee's department.
  */
-Project.prototype.assign = function(employee) {
+Project.prototype.assign = function (employee) {
   // ...
 };
 
@@ -577,7 +566,7 @@ Project.prototype.assign = function(employee) {
  * @param {string} employees[].name - The name of an employee.
  * @param {string} employees[].department - The employee's department.
  */
-Project.prototype.assign = function(employees) {
+Project.prototype.assign = function (employees) {
   // ...
 };
 
@@ -608,7 +597,9 @@ function sayHello(somebody) {
  * @param {...number} num - A positive or negative number.
  */
 function sum(num) {
-  var i = 0, n = arguments.length, t = 0;
+  var i = 0,
+    n = arguments.length,
+    t = 0;
   for (; i < n; i++) {
     t += arguments[i];
   }
@@ -709,8 +700,7 @@ function myFunction() {}
  * Set the magic number.
  * @param {NumberLike} x - The magic number.
  */
-function setMagicNumber(x) {
-}
+function setMagicNumber(x) {}
 /**
  * Generate the Fibonacci sequence of numbers.
  *
