@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.{ts,tsx},Jakefile setfiletype typescript
+autocmd BufNewFile,BufRead *.ts  set filetype=typescript
