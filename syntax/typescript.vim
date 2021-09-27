@@ -30,7 +30,7 @@ syntax match   tsParensError +[)}\]]+
 
 " Code blocks
 syntax region  tsBlock matchgroup=tsBraces start=+{+ end=+}+ contains=@tsTop extend fold
-syntax region  tsParen matchgroup=tsParens start=+(+ end=+)+ contains=@tsExpression,tsComma,tsSpread extend fold skipwhite skipempty nextgroup=tsArrow,tsFunctionCallArgs,tsAccessor,tsDot,@tsOperators,tsFlowColon
+syntax region  tsParen matchgroup=tsParens start=+(+ end=+)+ contains=@tsExpression,tsComma,tsSpread extend fold skipwhite skipempty nextgroup=tsArrow,tsFunctionCallArgs,tsAccessor,tsDot,@tsOperators,tsColon
 
 " Operators
 " REFERENCE: https://developer.mozilla.org/en-US/docs/Web/typescript/Guide/Expressions_and_Operators
@@ -68,7 +68,7 @@ syntax cluster tsOperators contains=tsRelationalOperator,tsTernary,tsOperator,ts
 " REFERENCE:
 "   - https://developer.mozilla.org/en-US/docs/Web/typescript/Reference/Statements/import
 "   - https://developer.mozilla.org/en-US/docs/Web/typescript/Reference/Statements/export
-syntax keyword tsImport import skipwhite skipempty nextgroup=tsModuleName,tsModuleAsterisk,tsModuleBlock,tsString,tsDecoratorName,tsFlowModuleType,tsFlowModuleTypeof
+syntax keyword tsImport import skipwhite skipempty nextgroup=tsModuleName,tsModuleAsterisk,tsModuleBlock,tsString,tsDecoratorName,tsModuleType,tsModuleTypeof
 syntax keyword tsExport export skipwhite skipempty nextgroup=tsVariableType,tsFunction,tsClass,tsDecorator,tsModuleBlock,tsModuleDefault,tsModuleAsterisk
 syntax keyword tsFrom from contained skipwhite skipempty nextgroup=tsString
 syntax keyword tsModuleDefault default contained skipwhite skipempty nextgroup=@tsExpression
@@ -128,14 +128,14 @@ syntax region  tsHashbangComment start=+^#!+ end=+$+
 " Declaration
 syntax keyword tsVariableType const let var skipwhite skipempty nextgroup=tsIdentifier,tsObjectDestructuring,tsArrayDestructuring
 " Match the top level identifier, e.g., `foo` inside `foo.bar`
-syntax match   tsIdentifier +\<\K\k*\>+ contains=@tsGlobals,tsTemplateStringTag skipwhite skipempty nextgroup=tsAssignmentEqual,tsComma,tsArrow,tsAccessor,tsDot,tsOptionalOperator,@tsOperators,tsFlowColon
+syntax match   tsIdentifier +\<\K\k*\>+ contains=@tsGlobals,tsTemplateStringTag skipwhite skipempty nextgroup=tsAssignmentEqual,tsComma,tsArrow,tsAccessor,tsDot,tsOptionalOperator,@tsOperators,tsColon
 " Match the prop identifier, e.g., `bar` inside `foo.bar`
 syntax match   tsIdentifierProp +\<\K\k*\>+ contained contains=tsTemplateStringTag skipwhite skipempty nextgroup=tsAssignmentEqual,tsComma,tsAccessor,tsDot,tsOptionalOperator,@tsOperators
 
 " Strings
-syntax region  tsString start=+\z(["']\)+ skip=+\\\\\|\\\z1\|\\\n+ end=+\z1+ contains=@Spell skipwhite skipempty nextgroup=tsAccessor,tsDot,@tsOperators,tsFlowColon
+syntax region  tsString start=+\z(["']\)+ skip=+\\\\\|\\\z1\|\\\n+ end=+\z1+ contains=@Spell skipwhite skipempty nextgroup=tsAccessor,tsDot,@tsOperators,tsColon
 syntax match   tsTemplateStringTag +\<\K\k*\>\%(\_s*`\)\@=+ skipwhite skipempty nextgroup=tsTemplateString
-syntax region  tsTemplateString start=+`+ skip=+\\\\\|\\`\|\\\n+ end=+`+ contains=tsTemplateExpression,@Spell skipwhite skipempty nextgroup=tsAccessor,tsDot,@tsOperators,tsFlowColon
+syntax region  tsTemplateString start=+`+ skip=+\\\\\|\\`\|\\\n+ end=+`+ contains=tsTemplateExpression,@Spell skipwhite skipempty nextgroup=tsAccessor,tsDot,@tsOperators,tsColon
 syntax region  tsTemplateExpression matchgroup=tsTemplateBrace start=+\%([^\\]\%(\\\\\)*\)\@<=${+ end=+}+ contained contains=@tsExpression
 
 " Built-in values
@@ -156,30 +156,30 @@ syntax keyword tsBuiltinFunctions eval uneval isFinite isNaN parseFloat parseInt
 
 " Numbers
 " REFERENCE: http://www.ecma-international.org/ecma-262/10.0/index.html#prod-NumericLiteral
-syntax match   tsNumber +\c[+-]\?\%(0b[01]\%(_\?[01]\)*\|0o\o\%(_\?\o\)*\|0x\x\%(_\?\x\)*\|\%(\%(\%(0\|[1-9]\%(_\?\d\%(_\?\d\)*\)\?\)\.\%(\d\%(_\?\d\)*\)\?\|\.\d\%(_\?\d\)*\|\%(0\|[1-9]\%(_\?\d\%(_\?\d\)*\)\?\)\)\%(e[+-]\?\d\%(_\?\d\)*\)\?\)\)+ contains=tsNumberDot,tsNumberSeparator skipwhite skipempty nextgroup=tsAccessor,@tsOperators,tsFlowColon
+syntax match   tsNumber +\c[+-]\?\%(0b[01]\%(_\?[01]\)*\|0o\o\%(_\?\o\)*\|0x\x\%(_\?\x\)*\|\%(\%(\%(0\|[1-9]\%(_\?\d\%(_\?\d\)*\)\?\)\.\%(\d\%(_\?\d\)*\)\?\|\.\d\%(_\?\d\)*\|\%(0\|[1-9]\%(_\?\d\%(_\?\d\)*\)\?\)\)\%(e[+-]\?\d\%(_\?\d\)*\)\?\)\)+ contains=tsNumberDot,tsNumberSeparator skipwhite skipempty nextgroup=tsAccessor,@tsOperators,tsColon
 syntax match   tsNumberDot +\.+ contained
 syntax match   tsNumberSeparator +_+ contained
 
 " Array
-syntax region  tsArray matchgroup=tsBrackets start=+\[+ end=+]+ contains=@tsExpression,tsComma,tsSpread skipwhite skipempty nextgroup=tsAccessor,tsDot,@tsOperators,tsFlowColon
+syntax region  tsArray matchgroup=tsBrackets start=+\[+ end=+]+ contains=@tsExpression,tsComma,tsSpread skipwhite skipempty nextgroup=tsAccessor,tsDot,@tsOperators,tsColon
 
 " Object
-syntax region  tsObject matchgroup=tsObjectBraces start=+{+ end=+}+ contained contains=tsComment,tsIdentifier,tsObjectKey,tsObjectKeyString,tsMethod,tsComputed,tsGeneratorAsterisk,tsAsync,tsMethodType,tsComma,tsSpread skipwhite skipempty nextgroup=tsFlowColon
+syntax region  tsObject matchgroup=tsObjectBraces start=+{+ end=+}+ contained contains=tsComment,tsIdentifier,tsObjectKey,tsObjectKeyString,tsMethod,tsComputed,tsGeneratorAsterisk,tsAsync,tsMethodType,tsComma,tsSpread skipwhite skipempty nextgroup=tsColon
 syntax match   tsObjectKey +\<\k\+\>\ze\s*:+ contained skipwhite skipempty nextgroup=tsAssignmentColon
 syntax region  tsObjectKeyString start=+\z(["']\)+ skip=+\\\\\|\\\z1\|\\\n+ end=+\z1+ contained contains=@Spell skipwhite skipempty nextgroup=tsAssignmentColon
 
 " Property accessor, e.g., arr[1] or obj["prop"]
-syntax region  tsAccessor matchgroup=tsAccessorBrackets start=+\[+ end=+]+ contained contains=@tsExpression skipwhite skipempty nextgroup=tsAccessor,tsFunctionCallArgs,tsDot,tsOptionalOperator,@tsOperators,tsFlowColon
+syntax region  tsAccessor matchgroup=tsAccessorBrackets start=+\[+ end=+]+ contained contains=@tsExpression skipwhite skipempty nextgroup=tsAccessor,tsFunctionCallArgs,tsDot,tsOptionalOperator,@tsOperators,tsColon
 
 " Array Destructuring
 " Cases like [a, b] = [1, 2] and the array destructuring in the arrow function arguments cannot be highlighted
 " as array destructuring, they are highlighted as Array, but it doesn't break the syntax
-syntax region  tsArrayDestructuring matchgroup=tsDestructuringBrackets start=+\[+ end=+]+ contained contains=tsComment,tsIdentifier,tsComma,tsSpread,tsObjectDestructuring,tsArrayDestructuring skipwhite skipempty nextgroup=tsAssignmentEqual,tsFlowColon
+syntax region  tsArrayDestructuring matchgroup=tsDestructuringBrackets start=+\[+ end=+]+ contained contains=tsComment,tsIdentifier,tsComma,tsSpread,tsObjectDestructuring,tsArrayDestructuring skipwhite skipempty nextgroup=tsAssignmentEqual,tsColon
 
 " Object Destructuring
 " Cases like ({a, b} = {a: 1, b: 2}) and the object destructuring in the arrow function arguments cannot be highlighted
 " as object destructuring, they are highlighted as Object, but it doesn't break the syntax
-syntax region  tsObjectDestructuring matchgroup=tsDestructuringBraces start=+{+ end=+}+ contained contains=tsComment,tsObjectDestructuringKey,tsIdentifier,tsComma,tsObjectDestructuring,tsArrayDestructuring,tsSpread skipwhite skipempty nextgroup=tsAssignmentEqual,tsFlowColon
+syntax region  tsObjectDestructuring matchgroup=tsDestructuringBraces start=+{+ end=+}+ contained contains=tsComment,tsObjectDestructuringKey,tsIdentifier,tsComma,tsObjectDestructuring,tsArrayDestructuring,tsSpread skipwhite skipempty nextgroup=tsAssignmentEqual,tsColon
 syntax match   tsObjectDestructuringKey +\<\K\k*\>\ze\s*:+ contained skipwhite skipempty nextgroup=tsObjectDestructuringColon
 syntax match   tsObjectDestructuringColon +:+ contained skipwhite skipempty nextgroup=tsIdentifier,tsObjectDestructuring,tsArrayDestructuring
 
@@ -189,13 +189,13 @@ syntax keyword tsExtends extends contained skipwhite skipempty nextgroup=tsClass
 syntax keyword tsConstructor constructor contained
 syntax keyword tsSuper super contained
 syntax keyword tsStatic static contained skipwhite skipempty nextgroup=tsClassProp,tsMethod,tsGeneratorAsterisk
-syntax match   tsClassName +\<\K\k*\%(\.\K\k*\)*\>+ contained skipwhite skipempty nextgroup=tsExtends,tsClassBody,tsFlowGenericDeclare,tsFlowImplments
+syntax match   tsClassName +\<\K\k*\%(\.\K\k*\)*\>+ contained skipwhite skipempty nextgroup=tsExtends,tsClassBody,tsGenericDeclare,tsImplments
 syntax region  tsClassBody matchgroup=tsClassBraces start=+{+ end=+}+ contained contains=tsComment,tsAsync,tsStatic,tsMethodType,tsClassPrivate,tsClassProp,tsMethod,tsGeneratorAsterisk,tsComputed,tsDecoratorName,tsDecoratorParams,tsSemicolon fold
-syntax match   tsClassProp +\<\K\k*\>+ contained skipwhite skipempty nextgroup=tsAssignmentEqual,tsFlowColon
+syntax match   tsClassProp +\<\K\k*\>+ contained skipwhite skipempty nextgroup=tsAssignmentEqual,tsColon
 syntax match   tsClassPrivate +#+ contained nextgroup=tsClassProp,tsMethod
 
 syntax keyword tsNew new skipwhite skipempty nextgroup=tsNewClassName
-syntax match   tsNewClassName +\K\k*\%(\.\K\k*\)*+ contained contains=tsNewDot,@tsGlobals skipwhite skipempty nextgroup=tsNewClassArgs,tsFlowGenericCall
+syntax match   tsNewClassName +\K\k*\%(\.\K\k*\)*+ contained contains=tsNewDot,@tsGlobals skipwhite skipempty nextgroup=tsNewClassArgs,tsGenericCall
 syntax region  tsNewClassArgs matchgroup=tsNewClassParens start=+(+ end=+)+ contained contains=@tsExpression,tsComma,tsSpread skipwhite skipempty nextgroup=tsAccessor,tsFunctionCallArgs,tsDot,tsOptionalOperator,@tsOperators
 syntax match   tsNewDot +\.+ contained
 
@@ -211,9 +211,9 @@ syntax keyword tsAsync async skipwhite skipempty nextgroup=tsFunction,tsFunction
 syntax keyword tsAwait await skipwhite skipempty nextgroup=@tsExpression
 syntax keyword tsThis this contained
 syntax keyword tsReturn return skipwhite skipempty nextgroup=@tsExpression
-syntax keyword tsFunction function skipwhite skipempty nextgroup=tsGeneratorAsterisk,tsFunctionName,tsFunctionArgs,tsFlowGenericDeclare
-syntax match   tsFunctionName +\<\K\k*\>+ contained skipwhite skipempty nextgroup=tsFunctionArgs,tsFlowGenericDeclare
-syntax region  tsFunctionArgs matchgroup=tsFunctionParens start=+(+ end=+)+ contained contains=tsComment,tsIdentifier,tsComma,tsSpread,tsObjectDestructuring,tsArrayDestructuring skipwhite skipempty nextgroup=tsArrow,tsFunctionBody,tsFlowColon fold
+syntax keyword tsFunction function skipwhite skipempty nextgroup=tsGeneratorAsterisk,tsFunctionName,tsFunctionArgs,tsGenericDeclare
+syntax match   tsFunctionName +\<\K\k*\>+ contained skipwhite skipempty nextgroup=tsFunctionArgs,tsGenericDeclare
+syntax region  tsFunctionArgs matchgroup=tsFunctionParens start=+(+ end=+)+ contained contains=tsComment,tsIdentifier,tsComma,tsSpread,tsObjectDestructuring,tsArrayDestructuring skipwhite skipempty nextgroup=tsArrow,tsFunctionBody,tsColon fold
 syntax region  tsFunctionBody matchgroup=tsFunctionBraces start=+{+ end=+}+ contained contains=@tsTop fold
 
 " Arrow Function
@@ -233,7 +233,7 @@ syntax match   tsYieldAsterisk +\*+ contained skipwhite skipempty nextgroup=@tsE
 
 " Function Call
 " Matches: func(), obj.func(), obj.func?.(), obj.func<Array<number | string>>() etc.
-syntax match   tsFunctionCall +\<\K\k*\>\%(\_s*<\%(\_[^&|)]\{-1,}\%([&|]\_[^&|)]\{-1,}\)*\)>\)\?\%(\_s*\%(?\.\)\?\_s*(\)\@=+ contains=tsImport,tsSuper,tsBuiltinFunctions,tsFlowGenericCall skipwhite skipempty nextgroup=tsOptionalOperator,tsFunctionCallArgs
+syntax match   tsFunctionCall +\<\K\k*\>\%(\_s*<\%(\_[^&|)]\{-1,}\%([&|]\_[^&|)]\{-1,}\)*\)>\)\?\%(\_s*\%(?\.\)\?\_s*(\)\@=+ contains=tsImport,tsSuper,tsBuiltinFunctions,tsGenericCall skipwhite skipempty nextgroup=tsOptionalOperator,tsFunctionCallArgs
 syntax region  tsFunctionCallArgs matchgroup=tsFunctionParens start=+(+ end=+)+ contained contains=@tsExpression,tsComma,tsSpread skipwhite skipempty nextgroup=tsAccessor,tsFunctionCallArgs,tsDot,tsOptionalOperator,@tsOperators
 
 " Loops
@@ -285,7 +285,6 @@ syntax cluster tsExpression contains=tsRegexp,tsComment,tsString,tsTemplateStrin
 " Tokens that are globally used by typescript
 syntax cluster tsGlobals contains=tsBuiltinValues,tsThis,tsSuper,tsBuiltinObjects
 
-" Highlight tsodc
 silent! source <sfile>:h/extras/tsdoc.vim
 
 " Basics
@@ -451,7 +450,11 @@ highlight default link tsThrow Keyword
 highlight default link tsExceptionParens tsParens
 highlight default link tsExceptionBraces tsBraces
 
-" Flow syntax highlighting
+" with statement
+highlight default link tsWith Keyword
+highlight default link tsWithParens tsParens
+
+
 " Syntax groups for flow module
 syntax keyword tsModuleType type contained skipwhite skipempty nextgroup=tsModuleTypeName,tsModuleBlock
 syntax match   tsModuleTypeName +\<\K\k*\>+ contained skipwhite skipempty nextgroup=tsModuleComma,jsFrom
@@ -581,10 +584,6 @@ highlight default link tsModuleAsterisk Operator
 highlight default link tsModuleAs Keyword
 highlight default link tsComment Comment
 
-
-" with statement
-highlight default link tsWith Keyword
-highlight default link tsWithParens tsParens
 
 let b:current_syntax = "typescript"
 if main_syntax == 'typescript'
