@@ -1,8 +1,7 @@
 " Vim syntax file
 " Language: typescript
-" Author: MicroSoft Open Technologies Inc.
-" Version: 0.1
-" Credits: Zhao Yi, Claudio Fleiner, Scott Shattuck, Jose Elera Campana
+" Author: Abel Tran
+" Version: 1.0.0
 
 if !exists("main_syntax")
   if version < 600
